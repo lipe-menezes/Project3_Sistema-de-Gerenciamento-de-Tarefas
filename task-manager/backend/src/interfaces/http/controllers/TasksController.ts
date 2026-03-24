@@ -96,7 +96,7 @@ export class TasksController {
   async update(req: Request, res: Response) {
     if (!req.user) throw new AppError("UNAUTHORIZED", "Não autenticado", 401);
 
-    const { id } = req.params;
+    const id = String(req.params.id);
     const body = updateTaskSchema.parse(req.body);
 
     const existing = await prisma.task.findFirst({
@@ -124,7 +124,7 @@ export class TasksController {
   async remove(req: Request, res: Response) {
     if (!req.user) throw new AppError("UNAUTHORIZED", "Não autenticado", 401);
 
-    const { id } = req.params;
+    const id = String(req.params.id);
 
     const existing = await prisma.task.findFirst({
       where: { id, userId: req.user.id },
