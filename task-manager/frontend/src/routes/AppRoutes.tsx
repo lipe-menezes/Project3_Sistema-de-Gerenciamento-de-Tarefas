@@ -1,15 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import type { ReactNode } from "react";
 import LoginPage from "../pages/LoginPage";
 import DashboardPage from "../pages/DashboardPage";
 import { useAuth } from "../context/AuthContext";
 
-function PrivateRoute({ children }: { children: JSX.Element }) {
+function PrivateRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
 
   if (loading) return <p>Carregando...</p>;
   if (!user) return <Navigate to="/" replace />;
 
-  return children;
+  return <>{children}</>;
 }
 
 export default function AppRoutes() {
