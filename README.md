@@ -1,150 +1,176 @@
-# Task Manager API
+# 🚀 Task Manager API + Dashboard (Fullstack)
 
-API RESTful para gerenciamento de tarefas, desenvolvida com foco em arquitetura limpa, autenticação JWT, boas práticas de backend e testes automatizados.
+Sistema completo de gerenciamento de tarefas com autenticação JWT, arquitetura limpa e frontend integrado.
 
-## Objetivo
+🔗 **Frontend (Vercel):** https://project3-sistema-de-gerenciamento-d-henna.vercel.app
+🔗 **Backend (Render):** https://project3-sistema-de-gerenciamento-de-yvo8.onrender.com
 
-Este projeto foi desenvolvido como parte de um portfólio profissional para demonstrar conhecimentos em desenvolvimento backend com Node.js, TypeScript, Prisma e PostgreSQL.
+---
 
-## Tecnologias utilizadas
+## 📌 Sobre o projeto
 
+Este projeto foi desenvolvido como parte do meu portfólio profissional com o objetivo de demonstrar habilidades em:
+
+- Desenvolvimento **backend escalável**
+- Arquitetura em camadas (Clean Architecture)
+- Integração **fullstack (API + Frontend)**
+- Autenticação segura com JWT
+- Testes automatizados
+- Deploy em ambiente real
+
+---
+
+## 🧠 Funcionalidades
+
+### 🔐 Autenticação
+- Cadastro de usuário
+- Login com JWT
+- Proteção de rotas
+- Endpoint `/me` para usuário autenticado
+
+### 📋 Tarefas
+- Criar tarefa
+- Listar tarefas
+- Atualizar status (todo / doing / done)
+- Deletar tarefa
+- Associação por usuário
+
+### 🔎 Filtros e busca
+- Paginação
+- Filtro por status
+- Busca por título/descrição
+
+### 🧪 Testes
+- Testes de integração com Vitest + Supertest
+- Cobertura das principais rotas
+
+---
+
+## 🖥️ Tecnologias
+
+### Backend
 - Node.js
 - TypeScript
 - Express
 - Prisma ORM
-- PostgreSQL
-- JWT (JSON Web Token)
+- PostgreSQL (Neon)
+- JWT
 - Zod
-- Vitest
-- Supertest
+- Vitest + Supertest
 
-## Funcionalidades
+### Frontend
+- React
+- Vite
+- TypeScript
+- Axios
+- React Router
+- React Hot Toast
 
-- Cadastro de usuários
-- Login com autenticação JWT
-- Rota protegida para usuário autenticado
-- CRUD de tarefas
-- Associação de tarefas por usuário
-- Paginação de tarefas
-- Filtro por status
-- Busca por título e descrição
-- Testes automatizados de integração
+### Infra / Deploy
+- Render (API)
+- Neon (Banco de dados)
+- Vercel (Frontend)
 
-## Estrutura do projeto
+---
 
+## 🏗️ Arquitetura
+
+O projeto segue uma estrutura baseada em **Clean Architecture**, separando responsabilidades:
 ```
 src/
-  application/
-    use-cases/
-  config/
-  domain/
-    errors/
-  infrastructure/
-    db/
-    providers/
-    repositories/
-  interfaces/
-    http/
-      controllers/
-      middlewares/
-      routes/
-      validators/
-      types/
-  main/
+application/ # Casos de uso
+domain/ # Regras de negócio
+infrastructure/ # Banco, providers
+interfaces/ # Controllers, rotas, middlewares
+main/ # Configuração da aplicação
 
-  ```
+```
 
-## Padrões e boas práticas aplicadas
+---
 
-- Separação por camadas
-- Middleware de autenticação
-- Tratamento centralizado de erros
-- Validação com Zod
-- Uso de variáveis de ambiente
-- Testes de integração com Vitest e Supertest
+## 🔗 Rotas da API
 
-## Rotas principais
+### Auth
+- `POST /auth/register`
+- `POST /auth/login`
 
-**Auth**
+### Usuário autenticado
+- `GET /me`
 
-- POST /auth/register
-- POST /auth/login
+### Tasks
+- `POST /tasks`
+- `GET /tasks`
+- `PATCH /tasks/:id`
+- `DELETE /tasks/:id`
 
-**Usuário autenticado**
+---
 
-- GET /me
+## 📦 Exemplos de uso
 
-**Tasks**
+### 🔐 Login
 
-- POST /tasks
-- GET /tasks
-- PATCH /tasks/:id
-- DELETE /tasks/:id
-
-## Exemplo de uso
-
-**Registrar usuário**
-
-POST /auth/register
-Content-Type: application/json
-{
-  "name": "Lipe",
-  "email": "lipe@email.com",
-  "password": "123456"
-}
-**Login**
+```
+http
 POST /auth/login
 Content-Type: application/json
+
 {
   "email": "lipe@email.com",
   "password": "123456"
 }
-**Criar tarefa**
+
+```
+
+## 📋 Criar tarefa
+
+```
 POST /tasks
 Authorization: Bearer TOKEN
-Content-Type: application/json
+
 {
-  "title": "Estudar testes automatizados",
-  "description": "Implementar testes com Vitest e Supertest"
+  "title": "Estudar testes",
+  "description": "Implementar Vitest"
 }
-
-## Paginação e filtros
-
-**Exemplos de listagem:**
+```
+## 🔎 Paginação e filtros
 
 GET /tasks?page=1&limit=10
 GET /tasks?status=todo
 GET /tasks?search=jwt
 
-## Variáveis de ambiente
+## ⚙️ Variáveis de ambiente
 
-*Crie um arquivo .env com base no exemplo abaixo:*
-
-DATABASE_URL="postgresql://postgres:SUA_SENHA@localhost:5432/task_manager?schema=public"
+DATABASE_URL="postgresql://..."
 JWT_SECRET="sua_chave_secreta"
 JWT_EXPIRES_IN="1h"
 BCRYPT_SALT_ROUNDS="10"
 PORT="3333"
 CORS_ORIGIN="http://localhost:5173"
 
-## Como rodar o projeto localmente
+## ▶️ Como rodar localmente
 
-1. Instalar dependências
+```
+# instalar dependências
 npm install
-2. Rodar as migrations
+
+# rodar migrations
 npx prisma migrate dev
-3. Iniciar o servidor
+
+# Iniciar servidor
 npm run dev
 
-*A aplicação ficará disponível em:*
+```
+**API disponível em:**
 
 http://localhost:3333
 
-## Rodando os testes
+## 🧪 Testes
 
-npm test
+*npm test*
 
-## Resultado atual dos testes
+✔️ 5 arquivos de teste
+✔️ 9 testes passando
 
-- 5 arquivos de teste
-- 9 testes passando
+## 📸 Preview
+
+![alt text](image.png)
